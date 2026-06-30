@@ -1,0 +1,187 @@
+/* === Paleta de marca "El Diván de Raskólnikov" === */
+:root {
+    --papel: #F6F0E1;
+    --papel-oscuro: #ECE3CF;
+    --papel-burbuja: #FBF7EC;
+    --ocre: #E6AA68;
+    --rojo: #CA3C25;
+    --rojo-oscuro: #B1331F;
+    --tinta: #1D1A05;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+    margin: 0;
+    height: 100%;
+}
+
+body {
+    background: var(--papel);
+    font-family: Georgia, "Times New Roman", serif;
+    color: var(--tinta);
+}
+
+/* === App a pantalla completa === */
+.app {
+    width: 100%;
+    height: 100vh;
+    height: 100dvh; /* 100dvh tiene en cuenta la barra del navegador en móvil */
+    display: flex;
+    flex-direction: column;
+    background: var(--papel);
+    overflow: hidden;
+}
+
+/* === Cabecera roja === */
+.cabecera {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: var(--rojo);
+    color: var(--papel);
+    padding: 16px 22px;
+}
+
+.icono-divan {
+    width: 42px;
+    height: auto;
+    display: block;
+}
+
+.titulo {
+    font-size: 1.4rem;
+    letter-spacing: 0.3px;
+}
+
+.titulo em {
+    font-style: italic;
+    font-size: 1.05rem;
+    opacity: 0.92;
+}
+
+/* === Zona de chat === */
+.chat {
+    flex: 1;
+    overflow-y: auto;
+    padding: 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* Cada mensaje es una fila */
+.mensaje {
+    display: flex;
+    align-items: flex-end;
+    gap: 10px;
+    max-width: 85%;
+}
+
+.mensaje--raski { align-self: flex-start; }
+.mensaje--tu {
+    align-self: flex-end;
+    flex-direction: row-reverse;
+}
+.mensaje--sistema {
+    align-self: center;
+    max-width: 90%;
+}
+
+/* === Burbujas === */
+.burbuja {
+    padding: 11px 15px;
+    border-radius: 16px;
+    line-height: 1.5;
+    font-size: 1.02rem;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+.mensaje--raski .burbuja {
+    background: var(--papel-burbuja);
+    border: 1px solid var(--ocre);
+    border-bottom-left-radius: 4px;
+}
+
+.mensaje--tu .burbuja {
+    background: var(--tinta);
+    color: var(--papel);
+    border-bottom-right-radius: 4px;
+}
+
+.mensaje--sistema .burbuja {
+    background: transparent;
+    color: rgba(29, 26, 5, 0.55);
+    font-style: italic;
+    font-size: 0.9rem;
+    text-align: center;
+    padding: 4px 0;
+}
+
+/* === Avatar de Raskólnikov === */
+.avatar {
+    flex: 0 0 auto;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: var(--rojo);
+    color: var(--papel);
+    border: 2px solid var(--ocre);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+/* === Barra de entrada === */
+.entrada {
+    display: flex;
+    gap: 10px;
+    padding: 14px 16px;
+    background: var(--papel);
+    border-top: 1px solid rgba(29, 26, 5, 0.12);
+}
+
+.entrada input {
+    flex: 1;
+    border: 1px solid rgba(29, 26, 5, 0.25);
+    background: var(--papel-burbuja);
+    border-radius: 22px;
+    padding: 11px 16px;
+    font-family: inherit;
+    font-size: 1rem;
+    color: var(--tinta);
+    outline: none;
+}
+
+.entrada input::placeholder { color: rgba(29, 26, 5, 0.4); }
+
+.entrada input:focus {
+    border-color: var(--rojo);
+    box-shadow: 0 0 0 3px rgba(202, 60, 37, 0.15);
+}
+
+.entrada button {
+    flex: 0 0 auto;
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    border: none;
+    background: var(--rojo);
+    color: var(--papel);
+    font-size: 1.3rem;
+    cursor: pointer;
+    transition: background 0.15s, transform 0.05s;
+}
+
+.entrada button:hover { background: var(--rojo-oscuro); }
+.entrada button:active { transform: scale(0.94); }
+
+/* === Barra de scroll discreta === */
+.chat::-webkit-scrollbar { width: 8px; }
+.chat::-webkit-scrollbar-thumb {
+    background: rgba(29, 26, 5, 0.18);
+    border-radius: 4px;
+}

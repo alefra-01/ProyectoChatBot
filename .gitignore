@@ -1,0 +1,11 @@
+.env
+.venv
+__pycache__/
+*.pyc
+*.log
+graphify-out/
+crimencastigo.txt
+procesar_libro.py
+main.py
+Boceto_El_Divan_de_Raskolnikov.pdf
+boceto.html
