@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sobre el creador · El Diván de Raskólnikov</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%23CA3C25'/><text x='16' y='23' font-size='19' text-anchor='middle' fill='%23F6F0E1' font-family='Georgia,serif'>R</text></svg>">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/estilos.css') }}">
+</head>
+<body>
+    <div class="app">
+        <header class="cabecera">
+            <!-- El logo + el título son el enlace para volver al chat -->
+            <a href="{{ url_for('hello') }}" class="enlace-volver" aria-label="Volver al chat">
+                <img src="{{ url_for('static', filename='img/logo.svg') }}" class="icono-divan" alt="Logo El Diván de Raskólnikov">
+                <span class="titulo">El Diván <em>de Raskólnikov</em></span>
+            </a>
+        </header>
+
+        <main class="pagina-creador">
+            Mi creador
+        </main>
+
+        <footer class="pie-creador">
+            Alejandro Franco González
+        </footer>
+    </div>
+</body>
+</html>

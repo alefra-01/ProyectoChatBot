@@ -46,6 +46,11 @@ def hello():
     return render_template('index.html')
 
 
+@app.route('/creador')
+def creador():
+    return render_template('creador.html')
+
+
 
 
 """Recibe el mensaje del usuario por POST, busca el fragmento mas relevante y devuelve la respuesta de Claude"""
@@ -119,7 +124,10 @@ def chat():
         print("Error al llamar a Claude:", error)
         # Quitamos del historial la pregunta que se quedó sin respuesta, para no descuadrarlo
         historial.pop()
-        return jsonify({"error": "Raskólnikov no puede responder ahora mismo. Inténtalo de nuevo."}), 502
+        # Ante CUALQUIER fallo de Claude (créditos agotados, red, sobrecarga...) devolvemos
+        # el flag sin_tokens: el frontend muestra el aviso amistoso de Raskólnikov en vez
+        # de un error técnico (la web puede estar meses sin mantenimiento).
+        return jsonify({"sin_tokens": True}), 503
 
     # Guarda la respuesta entera (para mostrarla en pantalla)
     historial.append({"role": "assistant", "content": respuesta})

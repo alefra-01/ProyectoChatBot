@@ -2,11 +2,9 @@
 const formulario = document.forms["EnvioPost"];
 const campoMensaje = document.getElementById("mensaje");
 const apartadoChat = document.getElementById("ApartadoChat");
+const botonEnviar = formulario.querySelector("button[type='submit']");
+const avisoSinTokens = document.getElementById("NoTokensConexion");
 
-// Pinta un mensaje en el chat de forma SEGURA, con su burbuja segun el autor.
-// Usamos textContent (NO innerHTML): asi, aunque alguien escriba algo como
-// "<img src=x onerror=alert(1)>", se mostrara como texto y nunca se ejecutara.
-// Esto vale tanto para tu mensaje como para la respuesta del modelo.
 function pintarMensaje(autor, texto) {
     const fila = document.createElement("div");
     fila.classList.add("mensaje");
@@ -16,15 +14,15 @@ function pintarMensaje(autor, texto) {
     burbuja.textContent = texto;
 
     if (autor === "Tu") {
-        // Tus mensajes: burbuja oscura a la derecha
+
         fila.classList.add("mensaje--tu");
         fila.appendChild(burbuja);
     } else if (autor === "Sistema") {
-        // Avisos del sistema: nota discreta centrada
+
         fila.classList.add("mensaje--sistema");
         fila.appendChild(burbuja);
     } else {
-        // Raskolnikov: avatar + burbuja clara a la izquierda
+
         fila.classList.add("mensaje--raski");
         const avatar = document.createElement("div");
         avatar.classList.add("avatar");
@@ -40,11 +38,10 @@ function pintarMensaje(autor, texto) {
 
 // Intercepta el envio del formulario
 formulario.addEventListener("submit", async function (evento) {
-    evento.preventDefault(); // evita que el navegador recargue la pagina
+    evento.preventDefault();
 
     const mensaje = campoMensaje.value.trim();
 
-    // Validacion en el cliente (la de verdad esta en el servidor)
     if (mensaje === "") {
         return;
     }
@@ -53,13 +50,10 @@ formulario.addEventListener("submit", async function (evento) {
         return;
     }
 
-    // Pinta tu propio mensaje y limpia el campo
     pintarMensaje("Tu", mensaje);
     campoMensaje.value = "";
 
     try {
-        // Manda el mensaje al servidor en segundo plano (AJAX), sin recargar.
-        // La cookie de sesion se envia sola al ser el mismo origen.
         const respuestaHttp = await fetch("/chat", {
             method: "POST",
             headers: { "Content-Type": "application/x-www-form-urlencoded" },
@@ -68,13 +62,22 @@ formulario.addEventListener("submit", async function (evento) {
 
         const datos = await respuestaHttp.json();
 
-        // El servidor puede devolver {"error": "..."} si rechaza el mensaje
-        if (datos.error) {
+        if (datos.sin_tokens) {
+            mostrarSinTokens();
+        } else if (datos.error) {
             pintarMensaje("Sistema", datos.error);
         } else {
             pintarMensaje("Raskolnikov", datos.respuesta);
         }
     } catch (error) {
-        pintarMensaje("Sistema", "No se pudo contactar con el servidor.");
+        // Ante cualquier fallo (servidor caído, red...) mostramos el aviso amistoso
+        // en vez de un error técnico: la web puede quedarse meses sin mantenimiento.
+        mostrarSinTokens();
     }
 });
+
+// Muestra el aviso amistoso de "sin tokens" y quita el botón de enviar
+function mostrarSinTokens() {
+    avisoSinTokens.hidden = false;
+    if (botonEnviar) botonEnviar.hidden = true;
+}
