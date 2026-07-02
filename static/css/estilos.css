@@ -246,3 +246,20 @@ body {
     color: rgba(29, 26, 5, 0.6);
     font-size: 0.9rem;
 }
+
+/* === Iconos de redes (página creador) === */
+.social {
+    display: flex;
+    gap: 18px;
+    margin-top: 22px;
+}
+.social-icon {
+    width: 34px;
+    height: 34px;
+    display: block;
+    transition: transform 0.15s, opacity 0.15s;
+}
+.social a:hover .social-icon {
+    transform: translateY(-2px);
+    opacity: 0.7;
+}
