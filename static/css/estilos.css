@@ -71,11 +71,10 @@ body {
     gap: 16px;
 }
 
-/* Cada mensaje es una fila */
 .mensaje {
     display: flex;
     align-items: flex-end;
-    gap: 10px;
+    gap: 7px;
     max-width: 85%;
 }
 
@@ -89,26 +88,23 @@ body {
     max-width: 90%;
 }
 
-/* === Burbujas === */
+
 .burbuja {
     padding: 11px 15px;
-    border-radius: 16px;
+    border-radius: 22px;
     line-height: 1.5;
-    font-size: 1.02rem;
+    font-size: 1.00rem;
     white-space: pre-wrap;
-    word-wrap: break-word;
 }
 
 .mensaje--raski .burbuja {
     background: var(--papel-burbuja);
     border: 1px solid var(--ocre);
-    border-bottom-left-radius: 4px;
 }
 
 .mensaje--tu .burbuja {
     background: var(--tinta);
     color: var(--papel);
-    border-bottom-right-radius: 4px;
 }
 
 .mensaje--sistema .burbuja {
