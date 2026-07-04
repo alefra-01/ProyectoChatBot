@@ -70,13 +70,10 @@ formulario.addEventListener("submit", async function (evento) {
             pintarMensaje("Raskolnikov", datos.respuesta);
         }
     } catch (error) {
-        // Ante cualquier fallo (servidor caído, red...) mostramos el aviso amistoso
-        // en vez de un error técnico: la web puede quedarse meses sin mantenimiento.
         mostrarSinTokens();
     }
 });
 
-// Muestra el aviso amistoso de "sin tokens" y quita el botón de enviar
 function mostrarSinTokens() {
     avisoSinTokens.hidden = false;
     if (botonEnviar) botonEnviar.hidden = true;
