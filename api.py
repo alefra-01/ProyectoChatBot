@@ -93,6 +93,8 @@ def chat():
 
     memoria = gestion_memoria(historial)
 
+    print("Pregunta:", mensaje_usuario, flush=True)
+
     try:
         response = client.messages.create(
             model="claude-sonnet-4-6",
